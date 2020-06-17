@@ -1,0 +1,40 @@
+#include <iostream>
+#include <locale>
+#include <unordered_map>
+#include <sstream>
+
+using namespace std; 
+
+void printFrequencies(const string &sentence);
+
+int main(void) {
+	setlocale(LC_CTYPE, "");
+	
+    string sentence = "Hoje visitei a velha estação de trem. "
+					"A estação estava coberta de abandono. "
+					"Porque, hoje, as pessoas parecem não dar bola para construções velhas como essa da estação de trem. "
+					"Muitas pessoas só querem saber de coisas futuras. Dão bola só para coisas novas."; 
+    
+	printFrequencies(sentence); 
+    
+	return 0; 
+}
+
+void printFrequencies(const string &sentence) { 
+	// Cria o hashmap para armazenar palavra, frequência
+    unordered_map<string, int> histogram; 
+	// Quebra a frase em palavras
+    stringstream buffer(sentence);
+    
+    string word;
+    
+    while (buffer >> word) 
+        histogram[word]++; 
+  
+    unordered_map<string, int>::iterator histogramIterator;
+    
+    for (histogramIterator = histogram.begin(); histogramIterator != histogram.end(); histogramIterator++)
+    	cout << "(" << histogramIterator->first << ", " << histogramIterator->second << ")\n";
+    
+    return;
+} 
